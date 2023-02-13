@@ -42,10 +42,10 @@ namespace Core.Utilities
             return str.Split(new string[] { separator }, StringSplitOptions.None);
         }
 
-        public static FileUploadResponse FileValidator(string userInfo, string fileType)//, System.Web.HttpPostedFile postedFile)
+        public static FileUploadResponse FileValidator(string userInfo, string fileType)
         {
             var response = new FileUploadResponse();
-            var getAccess = FileTypeHaveAccess(Path.GetExtension(fileType));
+            var getAccess = FileTypeHaveAccess(fileType);
             if (getAccess.HaveAccess == false)
                 return response;
 
@@ -115,6 +115,11 @@ namespace Core.Utilities
                     result.FileType = "image/png";
                     break;
                 case ".SVG":
+                    result.HaveAccess = true;
+                    result.FilePathType = ".png";
+                    result.FileType = "image/png";
+                    break;
+                case "image/jpeg":
                     result.HaveAccess = true;
                     result.FilePathType = ".png";
                     result.FileType = "image/png";
